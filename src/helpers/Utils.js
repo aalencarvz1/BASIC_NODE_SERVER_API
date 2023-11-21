@@ -12,25 +12,6 @@ class Utils{
         return momento;
     };
 
-    /*static log(v1,v2,v3){
-        try{
-            if (typeof v1 !== "undefined") {
-                if (typeof v2 !== "undefined") {
-                    if (typeof v3 !== "undefined") {
-                        console.info(Utils.getMomento(),'-',v1,v2,v3);            
-                    } else {
-                        console.info(Utils.getMomento(),'-',v1,v2);
-                    }
-                } else {
-                    console.info(Utils.getMomento(),'-',v1);
-                }
-            }
-        }catch(e){
-            Utils.log(e);					  
-            alert(e.message || e);
-        }		            
-    };*/
-
     static logi(p_nome_classe,p_nome_funcao){
         try {
             if (typeof p_nome_funcao !== "undefined") {

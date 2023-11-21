@@ -8,9 +8,6 @@ const { RoutinesController } = require("./routines/RoutinesController");
  */
 class ModulesController {
 
-
-    
-
     
     /**
      * * Process route as array of levels. ex: /modules/inputs/purchases/forecast/get as ['modules','inputs','purchases','forecast','get']
@@ -30,12 +27,6 @@ class ModulesController {
                     break;
                 case 'routines':                    
                     await RoutinesController.processPostAsRoute(req,res,next,route,arrRoute,level);                    
-                    break;
-                case 'outputs':                    
-                    await OutputsController.processPostAsRoute(req,res,next,route,arrRoute,level);                    
-                    break;
-                case 'reports':                    
-                    await ReportsController.processPostAsRoute(req,res,next,route,arrRoute,level);                    
                     break;
                 default:
                     throw new Error(`resource level not expected: ${arrRoute[level]} of ${route}`);

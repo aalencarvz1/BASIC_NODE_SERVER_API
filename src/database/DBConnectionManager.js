@@ -15,10 +15,6 @@ module.exports = class DBConnectionManager {
 
     static #oldDBConnection = null;
 
-    static #winthorDBConnection = null;
-
-    static #consultDBConnection = null;
-
     /**
      * get / start default database connection, according configDB
      * @returns database connection

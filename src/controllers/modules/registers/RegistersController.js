@@ -68,18 +68,6 @@ class RegistersController {
                 case 'people':
                     await PeopleController.processPostAsRoute(req,res,next,route,arrRoute,level);
                     break;
-                case 'items':
-                    await ItemsController.processPostAsRoute(req,res,next,route,arrRoute,level);
-                    break; 
-                case 'orders':
-                    await OrdersController.processPostAsRoute(req,res,next,route,arrRoute,level);
-                    break; 
-                case 'ordersxclients':
-                    await OrdersXClientsController.processPostAsRoute(req,res,next,route,arrRoute,level);
-                    break;   
-                case 'ordersxitems':
-                    await OrdersXItemsController.processPostAsRoute(req,res,next,route,arrRoute,level);
-                    break;   
                 default:
                     throw new Error(`resource level not expected: ${arrRoute[level]} of ${route}`);
                     break;

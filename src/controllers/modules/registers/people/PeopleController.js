@@ -102,12 +102,7 @@ class PeopleController {
                     res.data = await People[`${arrRoute[level].trim().toLowerCase()}Data`](req.body);
                     res.sendResponse(200,true);
                     break;                
-                case 'companies':
-                case 'businessesunits':
-                case 'warehouses':
-                case 'suppliers':
                 case 'clients':
-                case 'collaborators':  
                     PeopleController.processPostAsRegister(req,res,next,route,arrRoute,level);
                     break;                     
                 case 'users':

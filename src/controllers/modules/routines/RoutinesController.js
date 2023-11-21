@@ -155,9 +155,8 @@ class RoutinesController {
                         delete nestedModules[key];
                     }
                 }
-                //console.log("nested",JSON.stringify(nestedModules));
+
                 modules = RoutinesController.removeNonVisualModules(nestedModules);
-                //modules = nestedModules;
             }
         } catch(e) {
             Utils.log(e);
