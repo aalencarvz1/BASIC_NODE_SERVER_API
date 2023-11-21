@@ -235,7 +235,7 @@ class Utils{
     }
 
     static log(...values) {
-        if (process.env.NODE_ENV == 'production' && false) {
+        if ((process.env.NODE_ENV || 'development') == 'production' && false) {
             let log = [Utils.getMomento()];
             for(let key in values) {
                 switch(Utils.typeOf(values[key])) {

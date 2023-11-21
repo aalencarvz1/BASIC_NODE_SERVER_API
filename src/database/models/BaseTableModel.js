@@ -11,7 +11,7 @@ const { Utils } = require('../../helpers/Utils');
  */
 class BaseTableModel extends Model { 
     
-    static schema = configDB[process.env.NODE_ENV].database;  
+    static schema = configDB[process.env.NODE_ENV || 'development'].database;  
     
     static getBaseTableModelFields = () => {
         return {
@@ -211,8 +211,8 @@ class BaseTableModel extends Model {
             ID:this.ID,
             CREATEDAT: new Date(),
             ISSYSTEMREG : 1,
-            IDDATACONNECTION : configDB[process.env.NODE_ENV].ID,
-            IDSCHEMA : configDB[process.env.NODE_ENV].ID,
+            IDDATACONNECTION : configDB[process.env.NODE_ENV || 'development'].ID,
+            IDSCHEMA : configDB[process.env.NODE_ENV || 'development'].ID,
             NAME : this.name.toUpperCase()
         }],{
             ignoreDuplicates:true,

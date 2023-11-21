@@ -18,13 +18,13 @@ module.exports = {
   async up(queryInterface, Sequelize) {
     await DataConnections.runUpMigration(queryInterface,{migrateForeignKeyContraint:false});          
     await queryInterface.bulkInsert(DataConnections.name.toUpperCase(),[{      
-      ID:configDB[process.env.NODE_ENV].ID,
+      ID:configDB[process.env.NODE_ENV || 'development'].ID,
       IDSTATUSREG: StatusRegs.ACTIVE,
       IDUSERCREATE : Users.SYSTEM,
       CREATEDAT: new Date(),
       IDORIGINDATA : OriginsDatas.DEFAULT_ORIGINDATA,
       ISSYSTEMREG : 1,
-      NAME : process.env.NODE_ENV,
+      NAME : process.env.NODE_ENV || 'development',
       ISDEFAULT : 1
     }],{
       ignoreDuplicates:true,

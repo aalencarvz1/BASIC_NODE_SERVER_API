@@ -1,7 +1,7 @@
 const express = require('express');
 require('dotenv').config();
 const { Utils } = require('./helpers/Utils');
-Utils.log('NODE_ENV =',process.env.NODE_ENV);
+Utils.log('NODE_ENV =',process.env.NODE_ENV || 'development');
 const cookieParser = require('cookie-parser');
 const bodyParser = require("body-parser");
 const { AuthController } = require('./controllers/auth/AuthController');
