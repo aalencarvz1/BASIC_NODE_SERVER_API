@@ -37,8 +37,8 @@ class AuthController{
         let user = await Users.getModel().findOne({where:{email:body.email}});
         if (!user) return res.sendResponse(401,false,'user not found'); 
         if (!bcrypt.compareSync(body.password, user.PASSWORD)) return res.sendResponse(401,false,'password not math'); 
-        let token = jwt.sign({ID: user.ID},process.env.API_SECRET, {expiresIn:process.env.API_TOKEN_EXPIRATION});
-        let refreshToken = jwt.sign({ID: user.ID}, process.env.API_REFRESH_SECRET, {expiresIn:process.env.API_REFRESH_TOKEN_EXPIRATION}); 
+        let token = jwt.sign({ID: user.ID},process.env.API_SECRET || 'secret', {expiresIn:process.env.API_TOKEN_EXPIRATION || '1h'});
+        let refreshToken = jwt.sign({ID: user.ID}, process.env.API_REFRESH_SECRET || 'secret2', {expiresIn:process.env.API_REFRESH_TOKEN_EXPIRATION || '1d'}); 
         
         user.LASTTOKEN = token;
         user.LASTTIMEZONEOFFSET = body?.currentTimeZoneOffset || 0;
@@ -73,13 +73,13 @@ class AuthController{
         console.log('cokies',req.cookies);
         let refreshToken = req.cookies.refreshToken;
         if (!refreshToken) return res.status(401).json({success:false,message:'no refresh token'});
-        jwt.verify(refreshToken,process.env.API_REFRESH_SECRET,async function(error,decoded) {
+        jwt.verify(refreshToken,process.env.API_REFRESH_SECRET || 'secret2',async function(error,decoded) {
             if (error) return res.status(401).json({success:false,message:error.message || error});
             req.user = {ID:decoded.ID};  
             console.log("in refresh token",req.user,decoded);
 
             
-            let token = jwt.sign({ID: decoded.ID},process.env.API_SECRET, {expiresIn:process.env.API_TOKEN_EXPIRATION});
+            let token = jwt.sign({ID: decoded.ID},process.env.API_SECRET || 'secret', {expiresIn:process.env.API_TOKEN_EXPIRATION || '1h'});
 
             let user = await Users.getModel().findOne({where:{ID:req.user.ID}});
             if (!user) return res.sendResponse(401,false,'user not found'); 
@@ -128,8 +128,8 @@ class AuthController{
             EMAIL:req.body.email,
             PASSWORD: bcrypt.hashSync(req.body.password,AuthController.getCryptSalt())
         });
-        let token = jwt.sign({ID: user.ID},process.env.API_SECRET, {expiresIn:process.env.API_TOKEN_EXPIRATION});
-        let refreshToken = jwt.sign({ID: user.ID}, process.env.API_REFRESH_SECRET, {expiresIn:process.env.API_REFRESH_TOKEN_EXPIRATION}); 
+        let token = jwt.sign({ID: user.ID},process.env.API_SECRET || 'secret', {expiresIn:process.env.API_TOKEN_EXPIRATION || '1h'});
+        let refreshToken = jwt.sign({ID: user.ID}, process.env.API_REFRESH_SECRET || 'secret2', {expiresIn:process.env.API_REFRESH_TOKEN_EXPIRATION || '1d'}); 
 
         user.LASTTOKEN = token;
         user.LASTTIMEZONEOFFSET = req.body?.currentTimeZoneOffset || 0;
@@ -159,7 +159,7 @@ class AuthController{
             //secure route 
             let token = req.headers['x-access-token'];
             if (!token) return res.status(401).json({success:false,message:'no token'});
-            jwt.verify(token,process.env.API_SECRET,function(error,decoded) {
+            jwt.verify(token,process.env.API_SECRET || 'secret',function(error,decoded) {
                 if (error) return res.status(401).json({success:false,message:error.message || error});
                 req.user = {ID:decoded.ID};                
                 next();

@@ -26,8 +26,8 @@ api.use(AuthController.checkToken); //auth token check middleware
 api.all('*', RoutesController.processRoute);
 
 //api start
-api.listen(process.env.API_PORT,function(){
-    Utils.log(`server api running on port ${process.env.API_PORT}`)
+api.listen(process.env.API_PORT || 3000,function(){
+    Utils.log(`server api running on port ${process.env.API_PORT || 3000}`)
 });
 
 //init database models
